@@ -1,0 +1,15 @@
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\bin\Debug\WPF_UltimateFighters.exe.config
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\bin\Debug\WPF_UltimateFighters.exe
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\bin\Debug\WPF_UltimateFighters.pdb
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\obj\Debug\WPF_UltimateFighters.csproj.AssemblyReference.cache
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\obj\Debug\MainWindow.g.cs
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\obj\Debug\App.g.cs
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\obj\Debug\WPF_UltimateFighters_MarkupCompile.cache
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\obj\Debug\WPF_UltimateFighters_MarkupCompile.lref
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\obj\Debug\MainWindow.baml
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\obj\Debug\WPF_UltimateFighters.g.resources
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\obj\Debug\WPF_UltimateFighters.Properties.Resources.resources
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\obj\Debug\WPF_UltimateFighters.csproj.GenerateResource.cache
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\obj\Debug\WPF_UltimateFighters.csproj.CoreCompileInputs.cache
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\obj\Debug\WPF_UltimateFighters.exe
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\obj\Debug\WPF_UltimateFighters.pdb

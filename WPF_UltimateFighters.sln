@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35201.131
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF_UltimateFighters", "WPF_UltimateFighters\WPF_UltimateFighters.csproj", "{15A3B8A4-8572-4BC6-A4C4-7303AF1D8A0B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15A3B8A4-8572-4BC6-A4C4-7303AF1D8A0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15A3B8A4-8572-4BC6-A4C4-7303AF1D8A0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15A3B8A4-8572-4BC6-A4C4-7303AF1D8A0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15A3B8A4-8572-4BC6-A4C4-7303AF1D8A0B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5A22EC38-C03D-49C1-AA73-982A6CC4C83C}
+	EndGlobalSection
+EndGlobal
