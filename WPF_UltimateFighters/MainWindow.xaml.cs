@@ -58,5 +58,36 @@ namespace WPF_UltimateFighters
                 MessageBox.Show(ex.ToString());
             }
         }
+
+        private void ListDivisions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ShowFighters();
+        }
+
+        private void ShowFighters()
+        {
+            try
+            {
+                string query = @"SELECT * FROM Fighter f INNER JOIN FighterWeightClass fwc ON f.Id = fwc.FighterId WHERE WeightClassId = @weightClassId";
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+                SqlDataAdapter adapter = new SqlDataAdapter(sqlCommand);
+
+                using (adapter)
+                {
+                    sqlCommand.Parameters.AddWithValue("@weightClassId", ListDivisions.SelectedValue);
+                    DataTable fighterTable = new DataTable();
+                    adapter.Fill(fighterTable);
+
+                    ListFighters.DisplayMemberPath = "name" + "surename";
+                    ListFighters.SelectedValuePath = "Id";
+                    ListFighters.ItemsSource = fighterTable.DefaultView;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
     }
 }
