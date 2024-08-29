@@ -3,12 +3,15 @@
   "WorkspaceRootPath": "C:\\Users\\Mikey\\Desktop\\WPF_UltimateFighters\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{15A3B8A4-8572-4BC6-A4C4-7303AF1D8A0B}|WPF_UltimateFighters\\WPF_UltimateFighters.csproj|C:\\Users\\Mikey\\Desktop\\WPF_UltimateFighters\\wpf_ultimatefighters\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{15A3B8A4-8572-4BC6-A4C4-7303AF1D8A0B}|WPF_UltimateFighters\\WPF_UltimateFighters.csproj|solutionrelative:wpf_ultimatefighters\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{15A3B8A4-8572-4BC6-A4C4-7303AF1D8A0B}|WPF_UltimateFighters\\WPF_UltimateFighters.csproj|c:\\users\\mikey\\desktop\\wpf_ultimatefighters\\wpf_ultimatefighters\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{15A3B8A4-8572-4BC6-A4C4-7303AF1D8A0B}|WPF_UltimateFighters\\WPF_UltimateFighters.csproj|solutionrelative:wpf_ultimatefighters\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{15A3B8A4-8572-4BC6-A4C4-7303AF1D8A0B}|WPF_UltimateFighters\\WPF_UltimateFighters.csproj|c:\\users\\mikey\\desktop\\wpf_ultimatefighters\\wpf_ultimatefighters\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{15A3B8A4-8572-4BC6-A4C4-7303AF1D8A0B}|WPF_UltimateFighters\\WPF_UltimateFighters.csproj|solutionrelative:wpf_ultimatefighters\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/MIKEYPC_EL_KUMI/WPF_UltimateFightersDb/sa/SqlTable/dbo.WeightClass.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,29 +21,39 @@
       "DocumentGroups": [
         {
           "DockedHeight": 348,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
+              "Title": "dbo.WeightClass [Data]",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/MIKEYPC_EL_KUMI/WPF_UltimateFightersDb/sa/SqlTable/dbo.WeightClass.sql",
+              "ToolTip": "dbo.WeightClass [Data]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2024-08-29T11:08:40.935Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\Mikey\\Desktop\\WPF_UltimateFighters\\WPF_UltimateFighters\\MainWindow.xaml",
               "RelativeDocumentMoniker": "WPF_UltimateFighters\\MainWindow.xaml",
               "ToolTip": "C:\\Users\\Mikey\\Desktop\\WPF_UltimateFighters\\WPF_UltimateFighters\\MainWindow.xaml",
               "RelativeToolTip": "WPF_UltimateFighters\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-08-28T13:29:57.761Z",
+              "WhenOpened": "2024-08-29T09:41:33.678Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Mikey\\Desktop\\WPF_UltimateFighters\\WPF_UltimateFighters\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "WPF_UltimateFighters\\MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\Mikey\\Desktop\\WPF_UltimateFighters\\WPF_UltimateFighters\\MainWindow.xaml.cs",
               "RelativeToolTip": "WPF_UltimateFighters\\MainWindow.xaml.cs",
-              "ViewState": "AQIAACQAAAAAAAAAAAAuwEMAAAAJAAAA",
+              "ViewState": "AQIAAHIAAAAAAAAAAAAowI8AAAATAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-28T12:42:54.234Z",
               "EditorCaption": ""

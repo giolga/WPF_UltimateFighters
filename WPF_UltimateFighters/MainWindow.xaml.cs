@@ -61,7 +61,10 @@ namespace WPF_UltimateFighters
 
         private void ListDivisions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowFighters();
+            if (ListDivisions.SelectedValue != null)
+            {
+                ShowFighters();
+            }
         }
 
         private void ShowFighters()
@@ -78,15 +81,70 @@ namespace WPF_UltimateFighters
                     sqlCommand.Parameters.AddWithValue("@weightClassId", ListDivisions.SelectedValue);
                     DataTable fighterTable = new DataTable();
                     adapter.Fill(fighterTable);
-
-                    ListFighters.DisplayMemberPath = "name" + "surename";
-                    ListFighters.SelectedValuePath = "Id";
-                    ListFighters.ItemsSource = fighterTable.DefaultView;
+                    FighterDataGrid.ItemsSource = fighterTable.DefaultView;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show($"Error: {ex.ToString()}");
+            }
+        }
+
+        private void AddDivisionBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(DivisionTB.Text.ToString()))
+            {
+                DivisionTB.Background = Brushes.Red;
+                return;
+            }
+            else
+            {
+                DivisionTB.Background = Brushes.Transparent;
+
+                try
+                {
+                    string query = "INSERT INTO WeightClass ([weight-class]) VALUES (@division)";
+                    SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                    sqlConnection.Open();
+                    sqlCommand.Parameters.AddWithValue("@division", DivisionTB.Text.ToString());
+                    sqlCommand.ExecuteScalar();
+                }
+                catch
+                {
+                    MessageBox.Show("Insertion Failed!");
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                    ShowDivisions();
+                }
+
+            }
+
+        }
+
+        private void DeleteDivisionBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+            DivisionTB.Background = Brushes.Transparent;
+
+            try
+            {
+                string query = "DELETE FROM WeightClass WHERE Id = @Id";
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                sqlConnection.Open();
+                sqlCommand.Parameters.AddWithValue("@Id", Convert.ToInt32(ListDivisions.SelectedValue));
+                sqlCommand.ExecuteScalar();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Deletion Failed! Try Again!");
+            }
+            finally
+            {
+                sqlConnection.Close();
+                ShowDivisions();
             }
         }
     }

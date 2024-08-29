@@ -5,12 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_UltimateFighters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="750" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="500" Width="930" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Label Content="Divisions" Margin="10, 10, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <ListBox x:Name="ListDivisions" HorizontalAlignment="Left" Height="175" Margin="10, 40, 0, 0" VerticalAlignment="Top" Width="150" SelectionChanged="ListDivisions_SelectionChanged" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-        <Label Content="Fighters" Margin="240,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <ListBox x:Name="ListFighters" HorizontalAlignment="Left" Height="175" Margin="240,40,0,0" VerticalAlignment="Top" Width="150" />
+        <StackPanel Orientation="Vertical" Grid.Column="0">
+            <Label Content="Divisions"  VerticalAlignment="Top" HorizontalAlignment="Center" FontWeight="SemiBold" Margin="0, 15, 5, 0" />
+            <ListBox x:Name="ListDivisions" HorizontalAlignment="Left" Height="175" Margin="20,10,20,0" VerticalAlignment="Top" Width="150" SelectionChanged="ListDivisions_SelectionChanged" />
+
+            <TextBox HorizontalAlignment="Center" Name="DivisionTB" Width="168" Margin="0, 30, 0, 0" Height="37" FontSize="14" />
+            
+            <Button Content="Add Division" HorizontalAlignment="Center" Margin="0, 20, 0, 0" Name="AddDivisionBtn" Click="AddDivisionBtn_Click" Width="84" />
+            <Button Content="Delete Division" HorizontalAlignment="Center" Margin="0, 10, 0, 0" Name="DeleteDivisionBtn" Click="DeleteDivisionBtn_Click" />
+        </StackPanel>
+
+        <Grid Grid.Column="1">
+            <Label Content="Fighters" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+
+            <DataGrid x:Name="FighterDataGrid" Width="600" Margin="0,42,0,196" HorizontalAlignment="Center" AutoGenerateColumns="False">
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="#003f5c" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="FontWeight" Value="SemiBold" />
+                    </Style>
+                </DataGrid.Resources>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Width="50" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Name" Width="*" Binding="{Binding name}"/>
+                    <DataGridTextColumn Header="Nickname" Width="*" Binding="{Binding nickname}"/>
+                    <DataGridTextColumn Header="Surename" Width="*" Binding="{Binding surename}"/>
+                    <DataGridTextColumn Header="Nationality" Width="*" Binding="{Binding nationality}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </Window>
