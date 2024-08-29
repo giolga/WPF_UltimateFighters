@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_UltimateFighters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="930" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" MinHeight="500" Height="550" MinWidth="900" Width="930" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="720" />
         </Grid.ColumnDefinitions>
 
         <StackPanel Orientation="Vertical" Grid.Column="0">
@@ -17,31 +17,56 @@
             <ListBox x:Name="ListDivisions" HorizontalAlignment="Left" Height="175" Margin="20,10,20,0" VerticalAlignment="Top" Width="150" SelectionChanged="ListDivisions_SelectionChanged" />
 
             <TextBox HorizontalAlignment="Center" Name="DivisionTB" Width="168" Margin="0, 30, 0, 0" Height="37" FontSize="14" />
-            
+
             <Button Content="Add Division" HorizontalAlignment="Center" Margin="0, 20, 0, 0" Name="AddDivisionBtn" Click="AddDivisionBtn_Click" Width="84" />
             <Button Content="Delete Division" HorizontalAlignment="Center" Margin="0, 10, 0, 0" Name="DeleteDivisionBtn" Click="DeleteDivisionBtn_Click" />
         </StackPanel>
 
         <Grid Grid.Column="1">
-            <Label Content="Fighters" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="300" />
+                <RowDefinition Height="200" />
+            </Grid.RowDefinitions>
+            <Label Content="Fighters" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" FontWeight="SemiBold"/>
 
-            <DataGrid x:Name="FighterDataGrid" Width="600" Margin="0,42,0,196" HorizontalAlignment="Center" AutoGenerateColumns="False">
-                <DataGrid.Resources>
-                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="Background" Value="#003f5c" />
-                        <Setter Property="Foreground" Value="White" />
-                        <Setter Property="FontWeight" Value="SemiBold" />
-                    </Style>
-                </DataGrid.Resources>
+            <Grid Grid.Row="0">
+                <DataGrid x:Name="FighterDataGrid" Width="600" Margin="0,50,0,10" HorizontalAlignment="Center" AutoGenerateColumns="False">
+                    <DataGrid.Resources>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="#003f5c" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="FontWeight" Value="SemiBold" />
+                        </Style>
+                    </DataGrid.Resources>
 
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Width="50" Binding="{Binding Id}"/>
-                    <DataGridTextColumn Header="Name" Width="*" Binding="{Binding name}"/>
-                    <DataGridTextColumn Header="Nickname" Width="*" Binding="{Binding nickname}"/>
-                    <DataGridTextColumn Header="Surename" Width="*" Binding="{Binding surename}"/>
-                    <DataGridTextColumn Header="Nationality" Width="*" Binding="{Binding nationality}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Width="50" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="Name" Width="*" Binding="{Binding name}"/>
+                        <DataGridTextColumn Header="Nickname" Width="*" Binding="{Binding nickname}"/>
+                        <DataGridTextColumn Header="Surename" Width="*" Binding="{Binding surename}"/>
+                        <DataGridTextColumn Header="Nationality" Width="*" Binding="{Binding nationality}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+            <Grid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <TextBox  Width="132" Height="30" x:Name="NameTB"  VerticalAlignment="Top"  ToolTip="Name" HorizontalAlignment="Left" Margin="60,0,0,0" />
+                    <TextBox  Width="132" Height="30" x:Name="NicknameTB"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="216,0,0,0"/>
+                    <TextBox  Width="132" Height="30" x:Name="SurenameTB"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="372,0,0, 0" />
+                    <TextBox  Width="132" Height="30" x:Name="NationalityTB" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="528,0,0,0" />
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Button Height="20" Width="80" Content="Add Fighter" x:Name="AddFighter" Click="AddFighter_Click" Margin="60,40,580,40" />
+                    <Button Height="20" Width="80" Content="Fighter's Db" x:Name="ShowAllFighters" Click="AddFighter_Click" Margin="60,10,580,70" />
+                </Grid>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

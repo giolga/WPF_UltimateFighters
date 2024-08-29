@@ -94,7 +94,7 @@ namespace WPF_UltimateFighters
         {
             if (string.IsNullOrWhiteSpace(DivisionTB.Text.ToString()))
             {
-                DivisionTB.Background = Brushes.Red;
+                DivisionTB.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#DADADA"));
                 return;
             }
             else
@@ -146,6 +146,10 @@ namespace WPF_UltimateFighters
                 sqlConnection.Close();
                 ShowDivisions();
             }
+        }
+
+        private void AddFighter_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }
