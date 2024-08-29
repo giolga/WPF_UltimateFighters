@@ -34,6 +34,7 @@ namespace WPF_UltimateFighters
             sqlConnection = new SqlConnection(connectionString);
 
             ShowDivisions();
+            FighterWeightClass();
         }
 
         private void ShowDivisions()
@@ -245,26 +246,55 @@ namespace WPF_UltimateFighters
 
         private void ShowAllFighters_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
-            //    string query = @"SELECT * FROM Fighter";
-            //    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, sqlConnection);
-
-            //    using (sqlDataAdapter)
-            //    {
-            //        DataTable fighterTable = new DataTable();
-            //        sqlDataAdapter.Fill(fighterTable);
-
-            //        FighterDataGrid.SelectedValuePath = "Id";
-            //        FighterDataGrid.ItemsSource = fighterTable.DefaultView;
-            //    }
-
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("Error: Showing all fighters Failed! Try Again!");
-            //}
             ShowAllFightersDb();
         }
+
+        private void DeleteFighter_Click(object sender, RoutedEventArgs e)
+        {
+
+            //MessageBox.Show($"From Fighter Delete button! Fighter Id:{FighterDataGrid.SelectedValue}");
+            try
+            {
+                string query = @"DELETE FROM Fighter WHERE Id = @Id";
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+                sqlConnection.Open();
+                sqlCommand.Parameters.AddWithValue("@Id", FighterDataGrid.SelectedValue);
+                sqlCommand.ExecuteScalar();
+            }
+            catch
+            {
+                MessageBox.Show($"Fighter Deletion Failed! Try Again!");
+            }
+            finally
+            {
+                sqlConnection.Close();
+                ShowAllFightersDb();
+            }
+        }
+
+        private void FighterWeightClass()
+        {
+            try
+            {
+                string query = @"SELECT * FROM FighterWeightClass";
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, sqlConnection);
+
+                using (sqlDataAdapter)
+                {
+                    DataTable fighterWeightClassTable = new DataTable();
+                    sqlDataAdapter.Fill(fighterWeightClassTable);
+
+                    FighterWeightClassDataGrid.SelectedValuePath = "Id";
+                    FighterWeightClassDataGrid.ItemsSource = fighterWeightClassTable.DefaultView;
+                }
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($"Error: FighterWeightClass");
+            }
+        }
+
     }
 }
