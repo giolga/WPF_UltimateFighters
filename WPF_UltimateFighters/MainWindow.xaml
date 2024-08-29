@@ -57,14 +57,14 @@
 
                 <Grid Grid.Row="0">
                     <TextBox  Width="132" Height="30" x:Name="NameTB"  VerticalAlignment="Top"  ToolTip="Name" HorizontalAlignment="Left" Margin="60,0,0,0" />
-                    <TextBox  Width="132" Height="30" x:Name="NicknameTB"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="216,0,0,0"/>
-                    <TextBox  Width="132" Height="30" x:Name="SurenameTB"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="372,0,0, 0" />
-                    <TextBox  Width="132" Height="30" x:Name="NationalityTB" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="528,0,0,0" />
+                    <TextBox  Width="132" Height="30" x:Name="NicknameTB"  VerticalAlignment="Top" ToolTip="Nickname" HorizontalAlignment="Left" Margin="216,0,0,0"/>
+                    <TextBox  Width="132" Height="30" x:Name="SurenameTB"  VerticalAlignment="Top" ToolTip="Surename" HorizontalAlignment="Left" Margin="372,0,0, 0" />
+                    <TextBox  Width="132" Height="30" x:Name="NationalityTB" VerticalAlignment="Top" ToolTip="Nationality" HorizontalAlignment="Left" Margin="528,0,0,0" />
                 </Grid>
 
                 <Grid Grid.Row="1">
                     <Button Height="20" Width="80" Content="Add Fighter" x:Name="AddFighter" Click="AddFighter_Click" Margin="60,40,580,40" />
-                    <Button Height="20" Width="80" Content="Fighter's Db" x:Name="ShowAllFighters" Click="AddFighter_Click" Margin="60,10,580,70" />
+                    <Button Height="20" Width="80" Content="Fighter's Db" x:Name="ShowAllFighters" Click="ShowAllFighters_Click" Margin="60,10,580,70" />
                 </Grid>
             </Grid>
         </Grid>

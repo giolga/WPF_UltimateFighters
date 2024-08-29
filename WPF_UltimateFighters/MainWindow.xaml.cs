@@ -90,11 +90,34 @@ namespace WPF_UltimateFighters
             }
         }
 
+        private void ShowAllFightersDb()
+        {
+            try
+            {
+                string query = @"SELECT * FROM Fighter";
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, sqlConnection);
+
+                using (sqlDataAdapter)
+                {
+                    DataTable fighterTable = new DataTable();
+                    sqlDataAdapter.Fill(fighterTable);
+
+                    FighterDataGrid.SelectedValuePath = "Id";
+                    FighterDataGrid.ItemsSource = fighterTable.DefaultView;
+                }
+
+            }
+            catch
+            {
+                MessageBox.Show("Error: Showing all fighters Failed! Try Again!");
+            }
+        }
+
         private void AddDivisionBtn_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(DivisionTB.Text.ToString()))
             {
-                DivisionTB.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#DADADA"));
+                DivisionTB.Background = Brushes.Pink;
                 return;
             }
             else
@@ -137,7 +160,7 @@ namespace WPF_UltimateFighters
                 sqlCommand.ExecuteScalar();
 
             }
-            catch (Exception ex)
+            catch
             {
                 MessageBox.Show("Deletion Failed! Try Again!");
             }
@@ -150,6 +173,98 @@ namespace WPF_UltimateFighters
 
         private void AddFighter_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(NameTB.Text.ToString()))
+            {
+                NameTB.Background = Brushes.Pink;
+                if (MessageBox.Show("Please Enter the fighter name in the correct format", "Error", MessageBoxButton.OK) == MessageBoxResult.OK)
+                {
+                    NameTB.Background = Brushes.Transparent;
+                }
+            }
+            else if (string.IsNullOrWhiteSpace(NicknameTB.Text.ToString()))
+            {
+                //NicknameTB.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#DADADA"));
+                NicknameTB.Background = Brushes.Pink;
+                if (MessageBox.Show("Please Enter the fighter nickname in the correct format", "Error", MessageBoxButton.OK) == MessageBoxResult.OK)
+                {
+                    NicknameTB.Background = Brushes.Transparent;
+                }
+            }
+            else if (string.IsNullOrWhiteSpace(SurenameTB.Text.ToString()))
+            {
+                //SurenameTB.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#DADADA"));
+                SurenameTB.Background = Brushes.Pink;
+                if (MessageBox.Show("Please Enter the fighter surename in the correct format", "Error", MessageBoxButton.OK) == MessageBoxResult.OK)
+                {
+                    SurenameTB.Background = Brushes.Transparent;
+                }
+            }
+            else if (string.IsNullOrWhiteSpace(NationalityTB.Text.ToString()))
+            {
+                //NationalityTB.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#DADADA"));
+                NationalityTB.Background = Brushes.Pink;
+                if (MessageBox.Show("Please Enter the fighter nationality in the correct format", "Error", MessageBoxButton.OK) == MessageBoxResult.OK)
+                {
+                    NationalityTB.Background = Brushes.Transparent;
+                }
+            }
+            else
+            {
+                try
+                {
+                    string name = NameTB.Text.ToString();
+                    string nickname = NicknameTB.Text.ToString();
+                    string surename = SurenameTB.Text.ToString();
+                    string nationality = NationalityTB.Text.ToString();
+
+                    string query = @"INSERT INTO Fighter 
+                                    (name, nickname, surename, nationality)
+                                    VALUES(@name, @nickname, @surename, @nationality) ";
+
+                    SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+                    sqlConnection.Open();
+                    sqlCommand.Parameters.Add("@name", name);
+                    sqlCommand.Parameters.Add("@nickname", nickname);
+                    sqlCommand.Parameters.Add("@surename", surename);
+                    sqlCommand.Parameters.Add("@nationality", nationality);
+                    sqlCommand.ExecuteScalar();
+
+                }
+                catch
+                {
+                    MessageBox.Show($"Fighter Insertion Failed! Try Again!");
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                    ShowAllFightersDb();
+                }
+            }
+        }
+
+        private void ShowAllFighters_Click(object sender, RoutedEventArgs e)
+        {
+            //try
+            //{
+            //    string query = @"SELECT * FROM Fighter";
+            //    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, sqlConnection);
+
+            //    using (sqlDataAdapter)
+            //    {
+            //        DataTable fighterTable = new DataTable();
+            //        sqlDataAdapter.Fill(fighterTable);
+
+            //        FighterDataGrid.SelectedValuePath = "Id";
+            //        FighterDataGrid.ItemsSource = fighterTable.DefaultView;
+            //    }
+
+            //}
+            //catch
+            //{
+            //    MessageBox.Show("Error: Showing all fighters Failed! Try Again!");
+            //}
+            ShowAllFightersDb();
         }
     }
 }
