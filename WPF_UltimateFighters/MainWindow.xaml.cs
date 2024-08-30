@@ -296,5 +296,78 @@ namespace WPF_UltimateFighters
             }
         }
 
+        private void UpdateFighter(DataRowView fighter)
+        {
+            //MessageBox.Show("This is Ghazaaal");
+
+            string info = $"Fighter: {fighter["Id"].ToString()} {fighter["Name"].ToString()} {fighter["Nickname"].ToString()} {fighter["Surename"].ToString()} {fighter["Nationality"].ToString()}";
+            MessageBox.Show(info);
+
+            try
+            {
+                int fighterId = (int)fighter["Id"];
+
+                string name = fighter["Name"] != DBNull.Value ? fighter["Name"].ToString() : string.Empty;
+                string nickname = fighter["Nickname"] != DBNull.Value ? fighter["Nickname"].ToString() : string.Empty;
+                string surename = fighter["Surename"] != DBNull.Value ? fighter["Surename"].ToString() : string.Empty;
+                string nationality = fighter["Nationality"] != DBNull.Value ? fighter["Nationality"].ToString() : string.Empty;
+
+                string query = @"
+                    UPDATE Fighter
+                    SET name = @Name, nickname = @Nickname, surename = @Surename, nationality = @Nationality
+                    WHERE Id = @Id
+                ";
+
+                using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlConnection.Open();
+                    sqlCommand.Parameters.AddWithValue("@Id", fighterId);
+                    sqlCommand.Parameters.AddWithValue("@Name", name);
+                    sqlCommand.Parameters.AddWithValue("@Nickname", nickname);
+                    sqlCommand.Parameters.AddWithValue("@Surename", surename);
+                    sqlCommand.Parameters.AddWithValue("@Nationality", nationality);
+
+                    sqlCommand.ExecuteNonQuery();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: Fighter update failed. {ex.Message}");
+            }
+            finally
+            {
+                sqlConnection.Close();
+                ShowAllFightersDb();
+            }
+        }
+
+        //private void FighterDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    DataRowView selectedRow = FighterDataGrid.SelectedItem as DataRowView;
+
+        //    if (selectedRow != null)
+        //    {
+        //        string fighterInfo = $"Fighter info: {selectedRow["Id"]} {selectedRow["Name"]} {selectedRow["Nickname"]} {selectedRow["Surename"]} {selectedRow["Nationality"]}";
+        //        //MessageBox.Show(fighterInfo);
+        //        // UpdateFighter(selectedRow); // Uncomment if you want to update
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Error: No row selected.");
+        //    }
+        //}
+
+        private void FighterDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            // Check if the cell edit is committed
+            if (e.EditAction == DataGridEditAction.Commit)
+            {
+                var row = e.Row.DataContext as DataRowView;
+                string info = $"Fighter: {row["Id"].ToString()} {row["Name"].ToString()} {row["Nickname"].ToString()} {row["Surename"].ToString()} {row["Nationality"].ToString()}";
+                MessageBox.Show($"Edditing row : {info}");
+                UpdateFighter(row);
+            }
+        }
     }
 }
