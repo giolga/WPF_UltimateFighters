@@ -158,23 +158,33 @@ namespace WPF_UltimateFighters
 
             DivisionTB.Background = Brushes.Transparent;
 
-            try
-            {
-                string query = "DELETE FROM WeightClass WHERE Id = @Id";
-                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
-                sqlConnection.Open();
-                sqlCommand.Parameters.AddWithValue("@Id", Convert.ToInt32(ListDivisions.SelectedValue));
-                sqlCommand.ExecuteScalar();
+            DataRowView selectedRowView = ListDivisions.SelectedItem as DataRowView;
 
-            }
-            catch
+            if (selectedRowView != null)
             {
-                MessageBox.Show("Deletion Failed! Try Again!");
-            }
-            finally
-            {
-                sqlConnection.Close();
-                ShowDivisions();
+
+                string selectedDivision = selectedRowView["weight-class"].ToString();
+                if (MessageBox.Show($"Are you sure tou want to delete the division {selectedDivision}?", "Warning!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        string query = "DELETE FROM WeightClass WHERE Id = @Id";
+                        SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                        sqlConnection.Open();
+                        sqlCommand.Parameters.AddWithValue("@Id", ListDivisions.SelectedValue);
+                        sqlCommand.ExecuteScalar();
+
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Deletion Failed! Try Again!");
+                    }
+                    finally
+                    {
+                        sqlConnection.Close();
+                        ShowDivisions();
+                    }
+                }
             }
         }
 
@@ -413,6 +423,36 @@ namespace WPF_UltimateFighters
             }
             else
             {
+                //Check if table is empty. If it is, then Id Identity should start from 1
+                try
+                {
+                    string query = @"SELECT * FROM FighterWeightClass";
+                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, sqlConnection);
+
+                    using (sqlDataAdapter)
+                    {
+                        DataTable fighterWeightClassDataTable = new DataTable();
+                        sqlDataAdapter.Fill(fighterWeightClassDataTable);
+
+                        if (fighterWeightClassDataTable.Rows.Count == 0)
+                        {
+                            //DBCC CHECKIDENT('FighterWeightClass', RESEED, 0);
+                            string uptadeTable = @"DBCC CHECKIDENT('FighterWeightClass', RESEED, 0);";
+
+                            SqlCommand command = new SqlCommand(uptadeTable, sqlConnection);
+
+                            sqlConnection.Open();
+                            command.ExecuteNonQuery();
+                            sqlConnection.Close();
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show($"Error: Table Refresh Failed!");
+                }
+
+
                 try
                 {
                     string query = @"INSERT INTO [FighterWeightClass] ([FighterId], [WeightClassId]) VALUES (@FighterId, @WeightClassId)";
@@ -439,12 +479,14 @@ namespace WPF_UltimateFighters
 
         private void DeleteFigtherFromDivisionButton_Click(object sender, RoutedEventArgs e)
         {
+
             try
             {
                 string query = @"DELETE FROM FighterWeightClass WHERE Id = @Id";
-                SqlCommand sqlCommand = new SqlCommand( query, sqlConnection);
+
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
                 sqlConnection.Open();
-                sqlCommand.Parameters.AddWithValue("@Id", Convert.ToInt32(FighterWeightClassDataGrid.SelectedValue));
+                sqlCommand.Parameters.AddWithValue("@Id", FighterWeightClassDataGrid.SelectedValue);
                 sqlCommand.ExecuteScalar();
             }
             catch
@@ -477,5 +519,6 @@ namespace WPF_UltimateFighters
         {
             DeleteFigtherFromDivisionButton.Cursor = Cursors.Hand;
         }
+
     }
 }
