@@ -34,10 +34,11 @@ namespace WPF_UltimateFighters
             sqlConnection = new SqlConnection(connectionString);
 
             ShowDivisions();
-            FighterWeightClass();
+            ShowFighterWeightClass();
         }
 
 
+        #region Division_Region
         private void ShowDivisions()
         {
             try
@@ -61,69 +62,17 @@ namespace WPF_UltimateFighters
             }
         }
 
-
-        private void ListDivisions_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (ListDivisions.SelectedValue != null)
-            {
-                ShowFighters();
-            }
-        }
-
-
-        private void ShowFighters()
-        {
-            try
-            {
-                string query = @"SELECT * FROM Fighter f INNER JOIN FighterWeightClass fwc ON f.Id = fwc.FighterId WHERE WeightClassId = @weightClassId";
-                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
-
-                SqlDataAdapter adapter = new SqlDataAdapter(sqlCommand);
-
-                using (adapter)
-                {
-                    sqlCommand.Parameters.AddWithValue("@weightClassId", ListDivisions.SelectedValue);
-                    DataTable fighterTable = new DataTable();
-                    adapter.Fill(fighterTable);
-                    FighterDataGrid.ItemsSource = fighterTable.DefaultView;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error: {ex.ToString()}");
-            }
-        }
-
-
-        private void ShowAllFightersDb()
-        {
-            try
-            {
-                string query = @"SELECT * FROM Fighter";
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, sqlConnection);
-
-                using (sqlDataAdapter)
-                {
-                    DataTable fighterTable = new DataTable();
-                    sqlDataAdapter.Fill(fighterTable);
-
-                    FighterDataGrid.SelectedValuePath = "Id";
-                    FighterDataGrid.ItemsSource = fighterTable.DefaultView;
-                }
-
-            }
-            catch
-            {
-                MessageBox.Show("Error: Showing all fighters Failed! Try Again!");
-            }
-        }
-
-
         private void AddDivisionBtn_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(DivisionTB.Text.ToString()))
             {
                 DivisionTB.Background = Brushes.Pink;
+
+                if (MessageBox.Show("Please Enter the Division in the correct format", "Error", MessageBoxButton.OK) == MessageBoxResult.OK)
+                {
+                    DivisionTB.Background = Brushes.Transparent;
+                }
+
                 return;
             }
             else
@@ -151,7 +100,6 @@ namespace WPF_UltimateFighters
             }
 
         }
-
 
         private void DeleteDivisionBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -188,6 +136,63 @@ namespace WPF_UltimateFighters
             }
         }
 
+        private void ListDivisions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ListDivisions.SelectedValue != null)
+            {
+                ShowFightersInDivision();
+            }
+        }
+
+        private void ShowFightersInDivision()
+        {
+            try
+            {
+                string query = @"SELECT * FROM Fighter f INNER JOIN FighterWeightClass fwc ON f.Id = fwc.FighterId WHERE WeightClassId = @weightClassId";
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+                SqlDataAdapter adapter = new SqlDataAdapter(sqlCommand);
+
+                using (adapter)
+                {
+                    sqlCommand.Parameters.AddWithValue("@weightClassId", ListDivisions.SelectedValue);
+                    DataTable fighterTable = new DataTable();
+                    adapter.Fill(fighterTable);
+                    FighterDataGrid.ItemsSource = fighterTable.DefaultView;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.ToString()}");
+            }
+        }
+
+        #endregion
+
+
+        #region Fighter_Region
+        private void ShowAllFightersDb()
+        {
+            try
+            {
+                string query = @"SELECT * FROM Fighter";
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, sqlConnection);
+
+                using (sqlDataAdapter)
+                {
+                    DataTable fighterTable = new DataTable();
+                    sqlDataAdapter.Fill(fighterTable);
+
+                    FighterDataGrid.SelectedValuePath = "Id";
+                    FighterDataGrid.ItemsSource = fighterTable.DefaultView;
+                }
+
+            }
+            catch
+            {
+                MessageBox.Show("Error: Showing all fighters Failed! Try Again!");
+            }
+        }
 
         private void AddFighter_Click(object sender, RoutedEventArgs e)
         {
@@ -261,62 +266,6 @@ namespace WPF_UltimateFighters
             }
         }
 
-
-        private void ShowAllFighters_Click(object sender, RoutedEventArgs e)
-        {
-            ShowAllFightersDb();
-        }
-
-
-        private void DeleteFighter_Click(object sender, RoutedEventArgs e)
-        {
-
-            //MessageBox.Show($"From Fighter Delete button! Fighter Id:{FighterDataGrid.SelectedValue}");
-            try
-            {
-                string query = @"DELETE FROM Fighter WHERE Id = @Id";
-                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
-
-                sqlConnection.Open();
-                sqlCommand.Parameters.AddWithValue("@Id", FighterDataGrid.SelectedValue);
-                sqlCommand.ExecuteScalar();
-            }
-            catch
-            {
-                MessageBox.Show($"Fighter Deletion Failed! Try Again!");
-            }
-            finally
-            {
-                sqlConnection.Close();
-                ShowAllFightersDb();
-            }
-        }
-
-
-        private void FighterWeightClass()
-        {
-            try
-            {
-                string query = @"SELECT * FROM FighterWeightClass";
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, sqlConnection);
-
-                using (sqlDataAdapter)
-                {
-                    DataTable fighterWeightClassTable = new DataTable();
-                    sqlDataAdapter.Fill(fighterWeightClassTable);
-
-                    FighterWeightClassDataGrid.SelectedValuePath = "Id";
-                    FighterWeightClassDataGrid.ItemsSource = fighterWeightClassTable.DefaultView;
-                }
-
-            }
-            catch (Exception)
-            {
-                MessageBox.Show($"Error: FighterWeightClass");
-            }
-        }
-
-
         private void UpdateFighter(DataRowView fighter)
         {
             //MessageBox.Show("This is Ghazaaal");
@@ -360,46 +309,59 @@ namespace WPF_UltimateFighters
             }
         }
 
-
-        private void FighterDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        private void DeleteFighter_Click(object sender, RoutedEventArgs e)
         {
-            // Check if the cell edit is committed
-            if (e.EditAction == DataGridEditAction.Commit)
+
+            //MessageBox.Show($"From Fighter Delete button! Fighter Id:{FighterDataGrid.SelectedValue}");
+            try
             {
-                // Get the column name
-                string columnName = e.Column.Header.ToString();
+                string query = @"DELETE FROM Fighter WHERE Id = @Id";
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
 
-                //MessageBox.Show($"ColumnName : {columnName}");
+                sqlConnection.Open();
+                sqlCommand.Parameters.AddWithValue("@Id", FighterDataGrid.SelectedValue);
+                sqlCommand.ExecuteScalar();
+            }
+            catch
+            {
+                MessageBox.Show($"Fighter Deletion Failed! Try Again!");
+            }
+            finally
+            {
+                sqlConnection.Close();
+                ShowAllFightersDb();
+            }
+        }
 
-                // Get the row being edited
-                DataRowView selectedRow = e.Row.Item as DataRowView;
+        private void ShowAllFighters_Click(object sender, RoutedEventArgs e)
+        {
+            ShowAllFightersDb();
+        }
 
-                if (selectedRow != null)
+        #endregion
+
+
+        #region FighterWEightClass_Region
+        private void ShowFighterWeightClass()
+        {
+            try
+            {
+                string query = @"SELECT * FROM FighterWeightClass";
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, sqlConnection);
+
+                using (sqlDataAdapter)
                 {
-                    // Get the new value from the editing element
-                    var editingElement = e.EditingElement as TextBox;
-                    string newValue = editingElement?.Text;
+                    DataTable fighterWeightClassTable = new DataTable();
+                    sqlDataAdapter.Fill(fighterWeightClassTable);
 
-                    // Get the old value from the DataRowView
-                    string oldValue = selectedRow[columnName].ToString();
-
-                    // Compare old and new values
-                    if (newValue != oldValue && !string.IsNullOrWhiteSpace(newValue))
-                    {
-                        // The value has changed
-                        MessageBox.Show($"Value in column '{columnName}' has changed from '{oldValue}' to '{newValue}'.");
-
-                        // Optionally, update the DataRowView with the new value
-                        selectedRow[columnName] = newValue;
-                        UpdateFighter(selectedRow);
-                    }
-                    else
-                    {
-                        // The value has not changed
-                        MessageBox.Show($"Error: Value in column '{columnName}' has not changed or it is a whiteSpace!");
-                        UpdateFighter(selectedRow);
-                    }
+                    FighterWeightClassDataGrid.SelectedValuePath = "Id";
+                    FighterWeightClassDataGrid.ItemsSource = fighterWeightClassTable.DefaultView;
                 }
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($"Error: FighterWeightClass");
             }
         }
 
@@ -470,7 +432,7 @@ namespace WPF_UltimateFighters
                 finally
                 {
                     sqlConnection.Close();
-                    FighterWeightClass();
+                    ShowFighterWeightClass();
                 }
 
             }
@@ -496,10 +458,57 @@ namespace WPF_UltimateFighters
             finally
             {
                 sqlConnection.Close();
-                FighterWeightClass();
+                ShowFighterWeightClass();
             }
         }
 
+        //UpdateFighterWeightClass Table
+        private void FighterDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            // Check if the cell edit is committed
+            if (e.EditAction == DataGridEditAction.Commit)
+            {
+                // Get the column name
+                string columnName = e.Column.Header.ToString();
+
+                //MessageBox.Show($"ColumnName : {columnName}");
+
+                // Get the row being edited
+                DataRowView selectedRow = e.Row.Item as DataRowView;
+
+                if (selectedRow != null)
+                {
+                    // Get the new value from the editing element
+                    var editingElement = e.EditingElement as TextBox;
+                    string newValue = editingElement?.Text;
+
+                    // Get the old value from the DataRowView
+                    string oldValue = selectedRow[columnName].ToString();
+
+                    // Compare old and new values
+                    if (newValue != oldValue && !string.IsNullOrWhiteSpace(newValue))
+                    {
+                        // The value has changed
+                        MessageBox.Show($"Value in column '{columnName}' has changed from '{oldValue}' to '{newValue}'.");
+
+                        // Optionally, update the DataRowView with the new value
+                        selectedRow[columnName] = newValue;
+                        UpdateFighter(selectedRow);
+                    }
+                    else
+                    {
+                        // The value has not changed
+                        MessageBox.Show($"Error: Value in column '{columnName}' has not changed or it is a whiteSpace!");
+                        UpdateFighter(selectedRow);
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+
+        #region Button_UI_Region
         private void AddFighterInDivisionButton_MouseLeave(object sender, MouseEventArgs e)
         {
             AddFighterInDivisionButton.Cursor = Cursors.Arrow;
@@ -519,6 +528,7 @@ namespace WPF_UltimateFighters
         {
             DeleteFigtherFromDivisionButton.Cursor = Cursors.Hand;
         }
+        #endregion
 
     }
 }
