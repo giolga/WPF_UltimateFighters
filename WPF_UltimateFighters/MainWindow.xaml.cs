@@ -70,14 +70,14 @@ namespace WPF_UltimateFighters
 
                 if (MessageBox.Show("Please Enter the Division in the correct format", "Error", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
-                    DivisionTB.Background = Brushes.Transparent;
+                    DivisionTB.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#B8CFD9"));
                 }
 
                 return;
             }
             else
             {
-                DivisionTB.Background = Brushes.Transparent;
+                DivisionTB.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#B8CFD9"));
 
                 try
                 {
@@ -104,7 +104,7 @@ namespace WPF_UltimateFighters
         private void DeleteDivisionBtn_Click(object sender, RoutedEventArgs e)
         {
 
-            DivisionTB.Background = Brushes.Transparent;
+            DivisionTB.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#B8CFD9"));
 
             DataRowView selectedRowView = ListDivisions.SelectedItem as DataRowView;
 
@@ -241,7 +241,7 @@ namespace WPF_UltimateFighters
                 NameTB.Background = Brushes.Pink;
                 if (MessageBox.Show("Please Enter the fighter name in the correct format", "Error", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
-                    NameTB.Background = Brushes.Transparent;
+                    NameTB.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#B8CFD9"));
                 }
             }
             else if (string.IsNullOrWhiteSpace(NicknameTB.Text.ToString()))
@@ -250,7 +250,7 @@ namespace WPF_UltimateFighters
                 NicknameTB.Background = Brushes.Pink;
                 if (MessageBox.Show("Please Enter the fighter nickname in the correct format", "Error", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
-                    NicknameTB.Background = Brushes.Transparent;
+                    NicknameTB.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#B8CFD9"));
                 }
             }
             else if (string.IsNullOrWhiteSpace(SurenameTB.Text.ToString()))
@@ -259,7 +259,7 @@ namespace WPF_UltimateFighters
                 SurenameTB.Background = Brushes.Pink;
                 if (MessageBox.Show("Please Enter the fighter surename in the correct format", "Error", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
-                    SurenameTB.Background = Brushes.Transparent;
+                    SurenameTB.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#B8CFD9"));
                 }
             }
             else if (string.IsNullOrWhiteSpace(NationalityTB.Text.ToString()))
@@ -268,7 +268,7 @@ namespace WPF_UltimateFighters
                 NationalityTB.Background = Brushes.Pink;
                 if (MessageBox.Show("Please Enter the fighter nationality in the correct format", "Error", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
-                    NationalityTB.Background = Brushes.Transparent;
+                    NationalityTB.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#B8CFD9"));
                 }
             }
             else
@@ -308,49 +308,6 @@ namespace WPF_UltimateFighters
                     SurenameTB.Text = string.Empty;
                     NationalityTB.Text = string.Empty;
                 }
-            }
-        }
-
-        private void UpdateFighter(DataRowView fighter)
-        {
-            //MessageBox.Show("This is Ghazaaal");
-
-            try
-            {
-                int fighterId = (int)fighter["Id"];
-
-                string name = fighter["Name"] != DBNull.Value ? fighter["Name"].ToString() : string.Empty;
-                string nickname = fighter["Nickname"] != DBNull.Value ? fighter["Nickname"].ToString() : string.Empty;
-                string surename = fighter["Surename"] != DBNull.Value ? fighter["Surename"].ToString() : string.Empty;
-                string nationality = fighter["Nationality"] != DBNull.Value ? fighter["Nationality"].ToString() : string.Empty;
-
-                string query = @"
-                    UPDATE Fighter
-                    SET name = @Name, nickname = @Nickname, surename = @Surename, nationality = @Nationality
-                    WHERE Id = @Id
-                ";
-
-                using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
-                {
-                    sqlConnection.Open();
-                    sqlCommand.Parameters.AddWithValue("@Id", fighterId);
-                    sqlCommand.Parameters.AddWithValue("@Name", name);
-                    sqlCommand.Parameters.AddWithValue("@Nickname", nickname);
-                    sqlCommand.Parameters.AddWithValue("@Surename", surename);
-                    sqlCommand.Parameters.AddWithValue("@Nationality", nationality);
-
-                    sqlCommand.ExecuteNonQuery();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error: Fighter update failed. {ex.Message}");
-            }
-            finally
-            {
-                sqlConnection.Close();
-                ShowAllFightersDb();
             }
         }
 
@@ -416,6 +373,93 @@ namespace WPF_UltimateFighters
                 return;
             }
         }
+
+        private void UpdateFighter(DataRowView fighter)
+        {
+            //MessageBox.Show("This is Ghazaaal");
+
+            try
+            {
+                int fighterId = (int)fighter["Id"];
+
+                string name = fighter["Name"] != DBNull.Value ? fighter["Name"].ToString() : string.Empty;
+                string nickname = fighter["Nickname"] != DBNull.Value ? fighter["Nickname"].ToString() : string.Empty;
+                string surename = fighter["Surename"] != DBNull.Value ? fighter["Surename"].ToString() : string.Empty;
+                string nationality = fighter["Nationality"] != DBNull.Value ? fighter["Nationality"].ToString() : string.Empty;
+
+                string query = @"
+                    UPDATE Fighter
+                    SET name = @Name, nickname = @Nickname, surename = @Surename, nationality = @Nationality
+                    WHERE Id = @Id
+                ";
+
+                using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlConnection.Open();
+                    sqlCommand.Parameters.AddWithValue("@Id", fighterId);
+                    sqlCommand.Parameters.AddWithValue("@Name", name);
+                    sqlCommand.Parameters.AddWithValue("@Nickname", nickname);
+                    sqlCommand.Parameters.AddWithValue("@Surename", surename);
+                    sqlCommand.Parameters.AddWithValue("@Nationality", nationality);
+
+                    sqlCommand.ExecuteNonQuery();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: Fighter update failed. {ex.Message}");
+            }
+            finally
+            {
+                sqlConnection.Close();
+                ShowAllFightersDb();
+            }
+        }
+
+        //UpdateFighter Table
+        private void FighterDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            // Check if the cell edit is committed
+            if (e.EditAction == DataGridEditAction.Commit)
+            {
+                // Get the column name
+                string columnName = e.Column.Header.ToString();
+
+                //MessageBox.Show($"ColumnName : {columnName}");
+
+                // Get the row being edited
+                DataRowView selectedRow = e.Row.Item as DataRowView;
+
+                if (selectedRow != null)
+                {
+                    // Get the new value from the editing element
+                    var editingElement = e.EditingElement as TextBox;
+                    string newValue = editingElement?.Text;
+
+                    // Get the old value from the DataRowView
+                    string oldValue = selectedRow[columnName].ToString();
+
+                    // Compare old and new values
+                    if (newValue != oldValue && !string.IsNullOrWhiteSpace(newValue))
+                    {
+                        // The value has changed
+                        MessageBox.Show($"Value in column '{columnName}' has changed from '{oldValue}' to '{newValue}'.");
+
+                        // Optionally, update the DataRowView with the new value
+                        selectedRow[columnName] = newValue;
+                        UpdateFighter(selectedRow);
+                    }
+                    else
+                    {
+                        // The value has not changed
+                        MessageBox.Show($"Error: Value in column '{columnName}' has not changed or it is a whiteSpace!");
+                        UpdateFighter(selectedRow);
+                    }
+                }
+            }
+        }
+
         #endregion
 
 
@@ -450,7 +494,7 @@ namespace WPF_UltimateFighters
                 FighterIdTB.Background = Brushes.Pink;
                 if (MessageBox.Show("Please Enter the fighter Id in the correct format", "Error", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
-                    FighterIdTB.Background = Brushes.Transparent;
+                    FighterIdTB.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#B8CFD9"));
                 }
             }
             else if (string.IsNullOrWhiteSpace(DivisionIdTB.Text.ToString()) || !DivisionIdTB.Text.ToString().All(char.IsDigit) || DivisionIdTB.Text.ToString().All(char.IsWhiteSpace))
@@ -458,7 +502,7 @@ namespace WPF_UltimateFighters
                 DivisionIdTB.Background = Brushes.Pink;
                 if (MessageBox.Show("Please Enter the fighter Id in the correct format", "Error", MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
-                    DivisionIdTB.Background = Brushes.Transparent;
+                    DivisionIdTB.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#B8CFD9"));
                 }
             }
             else
@@ -540,8 +584,42 @@ namespace WPF_UltimateFighters
             }
         }
 
+        private void UpdateFighterWeightClass(DataRowView fighterWeightClass)
+        {
+
+            try
+            {
+                int id = (int)fighterWeightClass["Id"];
+                int fighterId = fighterWeightClass["FighterId"] != DBNull.Value ? (int)fighterWeightClass["FighterId"] : 0;
+                int weightClassId = fighterWeightClass["WeightClassId"] != DBNull.Value ? (int)fighterWeightClass["WeightClassId"] : 0;
+                string query = @"
+                    UPDATE FighterWeightClass
+                    SET FighterId = @FighterId, WeightClassId = @WeightClassId
+                    WHERE Id = @Id
+                ";
+
+                using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlConnection.Open();
+                    sqlCommand.Parameters.AddWithValue("@Id", id);
+                    sqlCommand.Parameters.AddWithValue("@FighterId", fighterId);
+                    sqlCommand.Parameters.AddWithValue("@WeightClassId", weightClassId);
+                    sqlCommand.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: FighterWeightClass update failed. {ex.Message}");
+            }
+            finally
+            {
+                sqlConnection?.Close();
+                ShowFighterWeightClass();
+            }
+        }
+
         //UpdateFighterWeightClass Table
-        private void FighterDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        private void FighterWeightClassDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             // Check if the cell edit is committed
             if (e.EditAction == DataGridEditAction.Commit)
@@ -558,26 +636,26 @@ namespace WPF_UltimateFighters
                 {
                     // Get the new value from the editing element
                     var editingElement = e.EditingElement as TextBox;
-                    string newValue = editingElement?.Text;
+                    bool newValueBoolean = int.TryParse(editingElement?.Text.ToString(), out int newValue);
 
                     // Get the old value from the DataRowView
-                    string oldValue = selectedRow[columnName].ToString();
+                    bool oldValueBoolean = int.TryParse(selectedRow[columnName].ToString(), out int oldValue);
 
                     // Compare old and new values
-                    if (newValue != oldValue && !string.IsNullOrWhiteSpace(newValue))
+                    if (newValue != oldValue && newValueBoolean && oldValueBoolean)
                     {
                         // The value has changed
                         MessageBox.Show($"Value in column '{columnName}' has changed from '{oldValue}' to '{newValue}'.");
 
                         // Optionally, update the DataRowView with the new value
                         selectedRow[columnName] = newValue;
-                        UpdateFighter(selectedRow);
+                        UpdateFighterWeightClass(selectedRow);
                     }
                     else
                     {
                         // The value has not changed
                         MessageBox.Show($"Error: Value in column '{columnName}' has not changed or it is a whiteSpace!");
-                        UpdateFighter(selectedRow);
+                        UpdateFighterWeightClass(selectedRow);
                     }
                 }
             }
