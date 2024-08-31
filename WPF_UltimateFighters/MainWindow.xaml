@@ -34,7 +34,8 @@
             <TextBox HorizontalAlignment="Center" Name="DivisionTB" Width="168" Margin="0, 30, 0, 0" Height="37" FontSize="14" />
 
             <Button Content="Add Division" HorizontalAlignment="Center" Margin="0, 20, 0, 0" Name="AddDivisionBtn" Click="AddDivisionBtn_Click" Width="84" />
-            <Button Content="Delete Division" HorizontalAlignment="Center" Margin="0, 10, 0, 0" Name="DeleteDivisionBtn" Click="DeleteDivisionBtn_Click" />
+            <Button Content="Delete Division" HorizontalAlignment="Center" Margin="0, 10, 0, 0" Name="DeleteDivisionBtn" Click="DeleteDivisionBtn_Click"  Width="84" />
+            <Button Content="Clear Division" HorizontalAlignment="Center" Margin="0, 10, 0, 0" Name="ClearDivisionBtn" Click="ClearDivisionBtn_Click" Width="84" MouseEnter="ClearDivisionBtn_MouseEnter" MouseLeave="ClearDivisionBtn_MouseLeave" />
         </StackPanel>
 
         <Grid Grid.Column="1">
@@ -78,9 +79,10 @@
                 </Grid>
 
                 <Grid Grid.Row="1">
-                    <Button Height="20" Width="80" Content="Fighter's Db" x:Name="ShowAllFighters" Click="ShowAllFighters_Click" Margin="60,10,580,70" />
-                    <Button Height="20" Width="80" Content="Add Fighter" x:Name="AddFighter" Click="AddFighter_Click" Margin="60,40,580,40" />
-                    <Button Height="20" Width="80" Content="Delete Fighter" x:Name="DeleteFighter_Copy" Click="DeleteFighter_Click" Margin="60,70,580,15" />
+                    <Button Height="20" Width="80" Content="Fighter's Db" x:Name="ShowAllFighters" Click="ShowAllFighters_Click" Margin="60,2,580,85" />
+                    <Button Height="20" Width="80" Content="Add Fighter" x:Name="AddFighter" Click="AddFighter_Click" Margin="60,27,580,60" />
+                    <Button Height="20" Width="80" Content="Delete Fighter" x:Name="DeleteFighter" Click="DeleteFighter_Click" Margin="60,52,580,33" />
+                    <Button Height="20" Width="80" Content="Clear Fighter" x:Name="ClearFighter" Click="ClearFighter_Click" Margin="60,77,580,8" />
                 </Grid>
             </Grid>
         </Grid>

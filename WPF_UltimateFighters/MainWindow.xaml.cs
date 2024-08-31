@@ -131,6 +131,8 @@ namespace WPF_UltimateFighters
                     {
                         sqlConnection.Close();
                         ShowDivisions();
+                        ShowAllFightersDb();
+                        ShowFighterWeightClass();
                     }
                 }
             }
@@ -164,6 +166,44 @@ namespace WPF_UltimateFighters
             catch (Exception ex)
             {
                 MessageBox.Show($"Error: {ex.ToString()}");
+            }
+        }
+        private void ClearDivisionBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to clear Division Table?", "Warning", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+
+                try
+                {
+                    string query = @"DELETE FROM WeightClass";
+                    SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+                    sqlConnection.Open();
+
+                    sqlCommand.ExecuteNonQuery();
+
+                    string updateTable = @"DBCC CHECKIDENT('WeightClass', RESEED, 0);";
+                    //SqlCommand command = new SqlCommand(updateTable, sqlConnection);
+                    //command.ExecuteNonQuery();
+
+                    sqlCommand = new SqlCommand(updateTable, sqlConnection);
+                    sqlCommand.ExecuteNonQuery();
+
+                }
+                catch
+                {
+                    MessageBox.Show($"Error: Clearing Division Table Failed! Try Again!");
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                    ShowDivisions();
+                    ShowFighterWeightClass();
+                }
+            }
+            else
+            {
+                return;
             }
         }
 
@@ -262,6 +302,11 @@ namespace WPF_UltimateFighters
                 {
                     sqlConnection.Close();
                     ShowAllFightersDb();
+
+                    NameTB.Text = string.Empty;
+                    NicknameTB.Text = string.Empty;
+                    SurenameTB.Text = string.Empty;
+                    NationalityTB.Text = string.Empty;
                 }
             }
         }
@@ -330,6 +375,7 @@ namespace WPF_UltimateFighters
             {
                 sqlConnection.Close();
                 ShowAllFightersDb();
+                ShowFighterWeightClass();
             }
         }
 
@@ -338,6 +384,38 @@ namespace WPF_UltimateFighters
             ShowAllFightersDb();
         }
 
+        private void ClearFighter_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to clear Fighter Table?", "Warning", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    string query = @"DELETE FROM Fighter";
+
+                    SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                    sqlConnection.Open();
+
+                    sqlCommand.ExecuteNonQuery();
+
+                    sqlCommand = new SqlCommand(@"DBCC CHECKIDENT('Fighter', RESEED, 0);", sqlConnection);
+                    sqlCommand.ExecuteNonQuery();
+                }
+                catch
+                {
+                    MessageBox.Show($"Error: Clearing Fighter Table Failed! Try Again!");
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                    ShowAllFightersDb();
+                    ShowFighterWeightClass();
+                }
+            }
+            else
+            {
+                return;
+            }
+        }
         #endregion
 
 
@@ -528,7 +606,19 @@ namespace WPF_UltimateFighters
         {
             DeleteFigtherFromDivisionButton.Cursor = Cursors.Hand;
         }
+
+        private void ClearDivisionBtn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ClearDivisionBtn.Cursor = Cursors.Hand;
+        }
+
+        private void ClearDivisionBtn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ClearDivisionBtn.Cursor = Cursors.Hand;
+        }
         #endregion
 
     }
 }
+
+//string updateTable = @"DBCC CHECKIDENT('WeightClass', RESEED, 0);";
