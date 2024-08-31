@@ -300,8 +300,8 @@ namespace WPF_UltimateFighters
         {
             //MessageBox.Show("This is Ghazaaal");
 
-            string info = $"Fighter: {fighter["Id"].ToString()} {fighter["Name"].ToString()} {fighter["Nickname"].ToString()} {fighter["Surename"].ToString()} {fighter["Nationality"].ToString()}";
-            MessageBox.Show(info);
+            //string info = $"Fighter: {fighter["Id"].ToString()} {fighter["Name"].ToString()} {fighter["Nickname"].ToString()} {fighter["Surename"].ToString()} {fighter["Nationality"].ToString()}";
+            //MessageBox.Show(info);
 
             try
             {
@@ -342,32 +342,48 @@ namespace WPF_UltimateFighters
             }
         }
 
-        //private void FighterDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    DataRowView selectedRow = FighterDataGrid.SelectedItem as DataRowView;
-
-        //    if (selectedRow != null)
-        //    {
-        //        string fighterInfo = $"Fighter info: {selectedRow["Id"]} {selectedRow["Name"]} {selectedRow["Nickname"]} {selectedRow["Surename"]} {selectedRow["Nationality"]}";
-        //        //MessageBox.Show(fighterInfo);
-        //        // UpdateFighter(selectedRow); // Uncomment if you want to update
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Error: No row selected.");
-        //    }
-        //}
 
         private void FighterDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             // Check if the cell edit is committed
             if (e.EditAction == DataGridEditAction.Commit)
             {
-                var row = e.Row.DataContext as DataRowView;
-                string info = $"Fighter: {row["Id"].ToString()} {row["Name"].ToString()} {row["Nickname"].ToString()} {row["Surename"].ToString()} {row["Nationality"].ToString()}";
-                MessageBox.Show($"Edditing row : {info}");
-                UpdateFighter(row);
+                // Get the column name
+                string columnName = e.Column.Header.ToString();
+
+                MessageBox.Show($"ColumnName : {columnName}");
+
+                // Get the row being edited
+                DataRowView selectedRow = e.Row.Item as DataRowView;
+
+                if (selectedRow != null)
+                {
+                    // Get the new value from the editing element
+                    var editingElement = e.EditingElement as TextBox;
+                    string newValue = editingElement?.Text;
+
+                    // Get the old value from the DataRowView
+                    string oldValue = selectedRow[columnName].ToString();
+
+                    // Compare old and new values
+                    if (newValue != oldValue && !string.IsNullOrWhiteSpace(newValue))
+                    {
+                        // The value has changed
+                        MessageBox.Show($"Value in column '{columnName}' has changed from '{oldValue}' to '{newValue}'.");
+
+                        // Optionally, update the DataRowView with the new value
+                        selectedRow[columnName] = newValue;
+                        UpdateFighter(selectedRow);
+                    }
+                    else
+                    {
+                        // The value has not changed
+                        MessageBox.Show($"Value in column '{columnName}' has not changed or it is a whiteSpace.");
+                        UpdateFighter(selectedRow);
+                    }
+                }
             }
         }
+
     }
 }

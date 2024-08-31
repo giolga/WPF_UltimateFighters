@@ -31,7 +31,7 @@
             <Label Content="Fighters" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" FontWeight="SemiBold"/>
 
             <Grid Grid.Row="0">
-                <DataGrid x:Name="FighterDataGrid" Width="600" Margin="0,50,0,10" HorizontalAlignment="Center" AutoGenerateColumns="False"  CellEditEnding="FighterDataGrid_CellEditEnding" >
+                <DataGrid x:Name="FighterDataGrid" Width="600" Margin="0,50,0,10" HorizontalAlignment="Center" AutoGenerateColumns="False"  CellEditEnding="FighterDataGrid_CellEditEnding">
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="Background" Value="#003f5c" />
