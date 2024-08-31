@@ -12,6 +12,9 @@
     {
       "AbsoluteMoniker": "D:0:0:{15A3B8A4-8572-4BC6-A4C4-7303AF1D8A0B}|WPF_UltimateFighters\\WPF_UltimateFighters.csproj|C:\\Users\\Mikey\\Desktop\\WPF_UltimateFighters\\wpf_ultimatefighters\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{15A3B8A4-8572-4BC6-A4C4-7303AF1D8A0B}|WPF_UltimateFighters\\WPF_UltimateFighters.csproj|solutionrelative:wpf_ultimatefighters\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/MIKEYPC_EL_KUMI/WPF_UltimateFightersDb/sa/SqlTable/dbo.FighterWeightClass.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     }
   ],
   "DocumentGroupContainers": [
@@ -25,12 +28,12 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "dbo.Fighter [Data]",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/MIKEYPC_EL_KUMI/WPF_UltimateFightersDb/sa/SqlTable/dbo.Fighter.sql",
-              "ToolTip": "dbo.Fighter [Data]",
+              "DocumentIndex": 3,
+              "Title": "dbo.FighterWeightClass [Data]",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/MIKEYPC_EL_KUMI/WPF_UltimateFightersDb/sa/SqlTable/dbo.FighterWeightClass.sql",
+              "ToolTip": "dbo.FighterWeightClass [Data]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2024-08-29T20:11:26.079Z",
+              "WhenOpened": "2024-08-31T09:28:16.603Z",
               "EditorCaption": ""
             },
             {
@@ -53,9 +56,19 @@
               "RelativeDocumentMoniker": "WPF_UltimateFighters\\MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\Mikey\\Desktop\\WPF_UltimateFighters\\WPF_UltimateFighters\\MainWindow.xaml.cs",
               "RelativeToolTip": "WPF_UltimateFighters\\MainWindow.xaml.cs",
-              "ViewState": "AQIAAFkBAAAAAAAAAAAkwIMBAAAAAAAA",
+              "ViewState": "AQIAAKsBAAAAAAAAAAAAALABAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-29T13:26:22.114Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "dbo.Fighter [Data]",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/MIKEYPC_EL_KUMI/WPF_UltimateFightersDb/sa/SqlTable/dbo.Fighter.sql",
+              "ToolTip": "dbo.Fighter [Data]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2024-08-29T20:11:26.079Z",
               "EditorCaption": ""
             }
           ]

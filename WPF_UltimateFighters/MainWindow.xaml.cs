@@ -37,6 +37,7 @@ namespace WPF_UltimateFighters
             FighterWeightClass();
         }
 
+
         private void ShowDivisions()
         {
             try
@@ -60,6 +61,7 @@ namespace WPF_UltimateFighters
             }
         }
 
+
         private void ListDivisions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ListDivisions.SelectedValue != null)
@@ -67,6 +69,7 @@ namespace WPF_UltimateFighters
                 ShowFighters();
             }
         }
+
 
         private void ShowFighters()
         {
@@ -91,6 +94,7 @@ namespace WPF_UltimateFighters
             }
         }
 
+
         private void ShowAllFightersDb()
         {
             try
@@ -113,6 +117,7 @@ namespace WPF_UltimateFighters
                 MessageBox.Show("Error: Showing all fighters Failed! Try Again!");
             }
         }
+
 
         private void AddDivisionBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -147,6 +152,7 @@ namespace WPF_UltimateFighters
 
         }
 
+
         private void DeleteDivisionBtn_Click(object sender, RoutedEventArgs e)
         {
 
@@ -171,6 +177,7 @@ namespace WPF_UltimateFighters
                 ShowDivisions();
             }
         }
+
 
         private void AddFighter_Click(object sender, RoutedEventArgs e)
         {
@@ -244,10 +251,12 @@ namespace WPF_UltimateFighters
             }
         }
 
+
         private void ShowAllFighters_Click(object sender, RoutedEventArgs e)
         {
             ShowAllFightersDb();
         }
+
 
         private void DeleteFighter_Click(object sender, RoutedEventArgs e)
         {
@@ -273,6 +282,7 @@ namespace WPF_UltimateFighters
             }
         }
 
+
         private void FighterWeightClass()
         {
             try
@@ -296,12 +306,10 @@ namespace WPF_UltimateFighters
             }
         }
 
+
         private void UpdateFighter(DataRowView fighter)
         {
             //MessageBox.Show("This is Ghazaaal");
-
-            //string info = $"Fighter: {fighter["Id"].ToString()} {fighter["Name"].ToString()} {fighter["Nickname"].ToString()} {fighter["Surename"].ToString()} {fighter["Nationality"].ToString()}";
-            //MessageBox.Show(info);
 
             try
             {
@@ -351,7 +359,7 @@ namespace WPF_UltimateFighters
                 // Get the column name
                 string columnName = e.Column.Header.ToString();
 
-                MessageBox.Show($"ColumnName : {columnName}");
+                //MessageBox.Show($"ColumnName : {columnName}");
 
                 // Get the row being edited
                 DataRowView selectedRow = e.Row.Item as DataRowView;
@@ -378,12 +386,96 @@ namespace WPF_UltimateFighters
                     else
                     {
                         // The value has not changed
-                        MessageBox.Show($"Value in column '{columnName}' has not changed or it is a whiteSpace.");
+                        MessageBox.Show($"Error: Value in column '{columnName}' has not changed or it is a whiteSpace!");
                         UpdateFighter(selectedRow);
                     }
                 }
             }
         }
 
+        private void AddFighterInDivisionButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(FighterIdTB.Text.ToString()) || !FighterIdTB.Text.ToString().All(char.IsDigit) || FighterIdTB.Text.ToString().All(char.IsWhiteSpace))
+            {
+                FighterIdTB.Background = Brushes.Pink;
+                if (MessageBox.Show("Please Enter the fighter Id in the correct format", "Error", MessageBoxButton.OK) == MessageBoxResult.OK)
+                {
+                    FighterIdTB.Background = Brushes.Transparent;
+                }
+            }
+            else if (string.IsNullOrWhiteSpace(DivisionIdTB.Text.ToString()) || !DivisionIdTB.Text.ToString().All(char.IsDigit) || DivisionIdTB.Text.ToString().All(char.IsWhiteSpace))
+            {
+                DivisionIdTB.Background = Brushes.Pink;
+                if (MessageBox.Show("Please Enter the fighter Id in the correct format", "Error", MessageBoxButton.OK) == MessageBoxResult.OK)
+                {
+                    DivisionIdTB.Background = Brushes.Transparent;
+                }
+            }
+            else
+            {
+                try
+                {
+                    string query = @"INSERT INTO [FighterWeightClass] ([FighterId], [WeightClassId]) VALUES (@FighterId, @WeightClassId)";
+                    SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                    sqlConnection.Open();
+
+                    sqlCommand.Parameters.AddWithValue("@FighterId", int.Parse(FighterIdTB.Text.ToString()));
+                    sqlCommand.Parameters.AddWithValue("@WeightClassId", int.Parse(DivisionIdTB.Text.ToString()));
+                    sqlCommand.ExecuteScalar();
+                }
+                catch
+                {
+                    MessageBox.Show($"Error: FighterWeightClass Insertion Failed! Try Again!");
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                    FighterWeightClass();
+                }
+
+            }
+
+        }
+
+        private void DeleteFigtherFromDivisionButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string query = @"DELETE FROM FighterWeightClass WHERE Id = @Id";
+                SqlCommand sqlCommand = new SqlCommand( query, sqlConnection);
+                sqlConnection.Open();
+                sqlCommand.Parameters.AddWithValue("@Id", Convert.ToInt32(FighterWeightClassDataGrid.SelectedValue));
+                sqlCommand.ExecuteScalar();
+            }
+            catch
+            {
+                MessageBox.Show($"Error: FighterWeightClass Deletion Failed! Try Again!");
+            }
+            finally
+            {
+                sqlConnection.Close();
+                FighterWeightClass();
+            }
+        }
+
+        private void AddFighterInDivisionButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            AddFighterInDivisionButton.Cursor = Cursors.Arrow;
+        }
+
+        private void AddFighterInDivisionButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            AddFighterInDivisionButton.Cursor = Cursors.Hand;
+        }
+
+        private void DeleteFigtherFromDivisionButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            DeleteFigtherFromDivisionButton.Cursor = Cursors.Arrow;
+        }
+
+        private void DeleteFigtherFromDivisionButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            DeleteFigtherFromDivisionButton.Cursor = Cursors.Hand;
+        }
     }
 }

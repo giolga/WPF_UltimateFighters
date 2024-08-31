@@ -71,23 +71,50 @@
             </Grid>
         </Grid>
 
-        <StackPanel Orientation="Vertical" Grid.Column="2">
-            <Label Content="Fighters and Divisions"  VerticalAlignment="Top" HorizontalAlignment="Center" FontWeight="SemiBold" Margin="0, 15, 5, 0" />
-            <DataGrid x:Name="FighterWeightClassDataGrid" AutoGenerateColumns="False"  HorizontalAlignment="Center" Margin="0,10,0,0" Height="240" Width="180">
-                <DataGrid.Resources>
-                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="Background" Value="#3c3663" />
-                        <Setter Property="Foreground" Value="White" />
-                        <Setter Property="FontWeight" Value="SemiBold" />
-                    </Style>
-                </DataGrid.Resources>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="200"/>
+            </Grid.RowDefinitions>
 
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Width="40" Binding="{Binding Id}"/>
-                    <DataGridTextColumn Header="FighterId" Width="*" Binding="{Binding FighterId}" />
-                    <DataGridTextColumn Header="DivisionId" Width="*" Binding="{Binding WeightClassId}" />
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
+            <StackPanel Grid.Row="0">
+                <Label Content="Fighters and Divisions"  VerticalAlignment="Top" HorizontalAlignment="Center" FontWeight="SemiBold" Margin="0, 15, 5, 0" />
+                <DataGrid x:Name="FighterWeightClassDataGrid" AutoGenerateColumns="False"  HorizontalAlignment="Center" Margin="-2,10,0,0" Height="240" Width="180">
+                    <DataGrid.Resources>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="#3c3663" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="FontWeight" Value="SemiBold" />
+                        </Style>
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Width="40" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="FighterId" Width="*" Binding="{Binding FighterId}" />
+                        <DataGridTextColumn Header="DivisionId" Width="*" Binding="{Binding WeightClassId}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+
+            <Grid Grid.Row="1" Margin="-1,0,1,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                
+                <Grid Grid.Row="0">
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="50,0,0,0" Content="Fighter Id" FontSize="14"/>
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="155,0,0,0" Content="Division Id" FontSize="14"/>
+
+                    <TextBox x:Name="FighterIdTB" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="50,30,0,0" />
+                    <TextBox x:Name="DivisionIdTB" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="155,30,0,0" />
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Button x:Name="AddFighterInDivisionButton" Click="AddFighterInDivisionButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Add fighters in division" Margin="50,2,0,0" Width="155" HorizontalContentAlignment="Center" MouseLeave="AddFighterInDivisionButton_MouseLeave" MouseEnter="AddFighterInDivisionButton_MouseEnter"/>
+                    <Button x:Name="DeleteFigtherFromDivisionButton" Click="DeleteFigtherFromDivisionButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Delete fighters from division" Margin="50,32,0,0" Width="155" HorizontalContentAlignment="Center" MouseLeave="DeleteFigtherFromDivisionButton_MouseLeave" MouseEnter="DeleteFigtherFromDivisionButton_MouseEnter"/>
+                </Grid>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
