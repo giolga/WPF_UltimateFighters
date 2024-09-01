@@ -19,9 +19,6 @@ using System.Windows.Shapes;
 
 namespace WPF_UltimateFighters
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
 
@@ -298,10 +295,10 @@ namespace WPF_UltimateFighters
                     SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
 
                     sqlConnection.Open();
-                    sqlCommand.Parameters.Add("@name", name);
-                    sqlCommand.Parameters.Add("@nickname", nickname);
-                    sqlCommand.Parameters.Add("@surename", surename);
-                    sqlCommand.Parameters.Add("@nationality", nationality);
+                    sqlCommand.Parameters.AddWithValue("@name", name);
+                    sqlCommand.Parameters.AddWithValue("@nickname", nickname);
+                    sqlCommand.Parameters.AddWithValue("@surename", surename);
+                    sqlCommand.Parameters.AddWithValue("@nationality", nationality);
                     sqlCommand.ExecuteScalar();
 
                 }

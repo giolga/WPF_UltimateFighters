@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:WPF_UltimateFighters"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        
+        <ResourceDictionary>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

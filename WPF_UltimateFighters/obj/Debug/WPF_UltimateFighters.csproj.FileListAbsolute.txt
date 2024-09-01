@@ -13,3 +13,11 @@ C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\obj\Debug\WPF_U
 C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\obj\Debug\WPF_UltimateFighters.csproj.CoreCompileInputs.cache
 C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\obj\Debug\WPF_UltimateFighters.exe
 C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\obj\Debug\WPF_UltimateFighters.pdb
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\bin\Debug\ControlzEx.dll
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\bin\Debug\Microsoft.Xaml.Behaviors.dll
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\bin\Debug\ControlzEx.pdb
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\bin\Debug\ControlzEx.xml
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\bin\Debug\Microsoft.Xaml.Behaviors.pdb
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\bin\Debug\Microsoft.Xaml.Behaviors.xml
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\obj\Debug\App.baml
+C:\Users\Mikey\Desktop\WPF_UltimateFighters\WPF_UltimateFighters\obj\Debug\WPF_Ulti.BB8CE7CB.Up2Date
