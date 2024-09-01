@@ -30,6 +30,17 @@ namespace WPF_UltimateFighters
         {
             InitializeComponent();
 
+            LinearGradientBrush gradientBrush = new LinearGradientBrush();
+            gradientBrush.StartPoint = new Point(0, 0);
+            gradientBrush.EndPoint = new Point(0, 1);
+
+            // Top color
+            gradientBrush.GradientStops.Add(new GradientStop(Colors.LightBlue, 0.0));
+            // Bottom color
+            gradientBrush.GradientStops.Add(new GradientStop(Colors.White, 1.0));
+
+            this.Background = gradientBrush;
+
             string connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
             sqlConnection = new SqlConnection(connectionString);
 
@@ -692,7 +703,27 @@ namespace WPF_UltimateFighters
 
         private void ClearDivisionBtn_MouseLeave(object sender, MouseEventArgs e)
         {
-            ClearDivisionBtn.Cursor = Cursors.Hand;
+            ClearDivisionBtn.Cursor = Cursors.Arrow;
+        }
+
+        private void ButtonMouseEnter(object sender, MouseEventArgs e)
+        {
+            AddDivisionBtn.Cursor = Cursors.Hand;
+            DeleteDivisionBtn.Cursor = Cursors.Hand;
+            ShowAllFighters.Cursor = Cursors.Hand;
+            AddFighter.Cursor = Cursors.Hand;
+            DeleteFighter.Cursor = Cursors.Hand;
+            ClearFighter.Cursor = Cursors.Hand;
+        }
+        
+        private void ButtonMouseLeave(object sender, MouseEventArgs e)
+        {
+            AddDivisionBtn.Cursor = Cursors.Arrow;
+            DeleteDivisionBtn.Cursor = Cursors.Arrow;
+            ShowAllFighters.Cursor = Cursors.Arrow;
+            AddFighter.Cursor = Cursors.Arrow;
+            DeleteFighter.Cursor = Cursors.Arrow;
+            ClearFighter.Cursor = Cursors.Arrow;
         }
         #endregion
 
